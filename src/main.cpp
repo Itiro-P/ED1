@@ -3,26 +3,18 @@
 #include <iostream>
 
 int main() {
-    const int n = 10;
-    ListaSequencial listaSeq(n);
+    ListaEncadeada listaEnc;
+    int n = 10;
     for(int i = 0; i < n; ++i) {
-        listaSeq.add(i);
+        listaEnc.push_back(i);    
     }
-    listaSeq.print();
-    listaSeq.remove();
-    listaSeq.print();
-    listaSeq.remove();
-    listaSeq.print();
-    listaSeq.insert(9999, 5);
-    listaSeq.print();
-    listaSeq.addSorted(12);
-    listaSeq.print();
-    listaSeq.removeAt(0);
-    listaSeq.print();
-    listaSeq.removeAt(12);
-    listaSeq.print();
-    listaSeq.removeAt(8);
-    listaSeq.print();
+    listaEnc.print();
 
+    listaEnc.pop_front();
+    listaEnc.print();
+    listaEnc.pop_back();
+    listaEnc.print();
+    listaEnc.push_front(999);
+    listaEnc.print();
     return 0;
 }

@@ -52,4 +52,31 @@ class ListaSequencial {
 
     // Insere elemento em ordem crescente.
     bool addSorted(int elem);
+
+    // Retorna posições livres no vetor.
+    int list_get_available();
+
+    // Remove todos os elementos.
+    void list_clear();
+
+    // Remove os n últimos ou o máximo possível.
+    void list_remove_last(int n);
+
+    // Imprime em ordem decrescente de posição.
+    void list_print_reverse();
+
+    // Adiciona elemntos de outra lista enquanto houver capacidade para tal.
+    void list_add(int n, int* vet);
+
+    // Retorna 'true' se a Lista estiver ordenada.
+    bool list_is_sorted();
+
+    // Reverte as ordem dos elementos na lista.
+    void list_reverse();
+
+    // Retorna 'true' se duas Listas são iguais.
+    bool list_equal(ListaSequencial *outra);
+
+    // Concatena com outra Lista obedecendo a capacidade originial.
+    int list_concat(ListaSequencial* list2);
 };
