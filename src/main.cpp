@@ -16,5 +16,7 @@ int main() {
     listaEnc.print();
     listaEnc.push_front(999);
     listaEnc.print();
+    listaEnc.insert(9, 100);
+    listaEnc.print();
     return 0;
 }

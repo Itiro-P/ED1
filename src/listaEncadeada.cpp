@@ -27,6 +27,24 @@ bool ListaEncadeada::pop_front() {
     --_size;
     return true;
 }
+
+bool ListaEncadeada::insert(int pos, int key) {
+    if(pos >= 0 && pos < _size) {
+        Node *prev = nullptr, *cur = head;
+        for(int i = 0; i < pos; ++i) {
+            prev = cur;
+            cur = cur->next;
+        }
+        Node *novo = new Node(key);
+        if(prev) prev->next = novo;
+        novo->next = cur;
+        ++_size;
+        if(pos == 0) head = novo;
+        return true;
+    }
+    return false;
+}
+
 int ListaEncadeada::get(int pos) {
     if(_size && head && pos >  -1 && pos < _size) {
         Node *temp = head;

@@ -17,6 +17,7 @@ class ListaEncadeada {
     ~ListaEncadeada();
     void push_front(int key);
     bool pop_front();
+    bool insert(int pos, int key);
     int get(int pos);
     void print();
     int size();
