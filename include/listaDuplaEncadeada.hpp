@@ -1,29 +1,28 @@
-# pragma once
-
+#pragma once
 #include <iostream>
 
-class ListaEncadeada {
-    class Node  {
+
+class ListaDuplaEncadeada {
+    class Node {
         public:
         int key = 0;
         Node *next = nullptr;
+        Node *prev = nullptr;
         Node(int key) : key(key) {};
     };
 
-
     Node *head = nullptr;
+    Node *tail = nullptr;
+    Node *sentinel;
     int _size = 0;
     public:
-    ListaEncadeada() = default;
-    ~ListaEncadeada();
+    ListaDuplaEncadeada();
+    ~ListaDuplaEncadeada();
     void push_front(int key);
     bool pop_front();
     bool insert(int pos, int key);
     int get(int pos);
     void print();
-    void print_last();
-    bool is_Sorted();
-    bool push_back_vector(int n, int *vec);
     int size();
     bool empty();
     void push_back(int key);

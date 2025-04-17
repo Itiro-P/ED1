@@ -1,9 +1,10 @@
 #include <listaSequencial.hpp>
 #include <listaEncadeada.hpp>
+#include <listaDuplaEncadeada.hpp>
 #include <iostream>
 
 int main() {
-    ListaEncadeada listaEnc;
+    ListaDuplaEncadeada listaEnc;
     int n = 10;
     for(int i = 0; i < n; ++i) {
         listaEnc.push_back(i);    
@@ -16,7 +17,7 @@ int main() {
     listaEnc.print();
     listaEnc.push_front(999);
     listaEnc.print();
-    listaEnc.insert(9, 100);
+    listaEnc.insert(4, 150);
     listaEnc.print();
     return 0;
 }

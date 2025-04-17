@@ -65,6 +65,41 @@ void ListaEncadeada::print() {
     std::cout << '\n';
 }
 
+void ListaEncadeada::print_last() {
+    Node *cur = head;
+    while(cur) {
+        if(cur->next) {
+            cur = cur->next;
+        } else {
+            std::cout << cur->key << '\n';
+            break;
+        }
+    }
+}
+
+bool ListaEncadeada::is_Sorted() {
+    Node *curNode = head;
+    int prev = -1, cur = head->key;
+    while(curNode) {
+        if(prev < cur || prev == -1) {
+            prev = cur;
+            curNode = curNode->next;
+            cur = curNode->key;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ListaEncadeada::push_back_vector(int n, int *vec) {
+    if(n < 1 || vec == nullptr) return false;
+    for(int i = 0; i < n; ++i) {
+        push_back(vec[n]);
+    }
+    return true;
+}
+
 int ListaEncadeada::size() {
     return _size;
 }
