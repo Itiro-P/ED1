@@ -2,18 +2,20 @@
 
 ListaDuplaEncadeada::ListaDuplaEncadeada() {
     sentinel = new Node(-1);
+    sentinel->prev = sentinel;
+    sentinel->next = sentinel;
     tail = head;
 }
 
 ListaDuplaEncadeada::~ListaDuplaEncadeada() {
     if(Node *cur = head; cur) {
-        while(cur->next != sentinel) {
+        while(cur != sentinel) {
             Node *temp = cur;
             cur = cur->next;
             delete temp;
-        }
-        if(sentinel) delete sentinel;
+        }   
     }
+    delete sentinel;
 }
 
 void ListaDuplaEncadeada::push_front(int key) {
@@ -60,14 +62,14 @@ bool ListaDuplaEncadeada::insert(int pos, int key) {
         push_front(key);
         return true;
     }
-    else if(pos == _size-1) {
+    else if(pos == _size) {
         push_back(key);
         return true;
     }
-    else if (pos > 0 && pos < _size-1) {
+    else if (pos > 0 && pos < _size) {
         Node *nNode = new Node(key);
         Node *cur = head;
-        for(int i = 0; i < pos; ++i) {
+        for(int i = 0; i < pos-1; ++i) {
             cur = cur->next;
         }
         nNode->next = cur->next;
