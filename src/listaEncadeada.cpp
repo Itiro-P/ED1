@@ -1,6 +1,16 @@
 #include <listaEncadeada.hpp>
 
-ListaEncadeada::~ListaEncadeada() {
+ListaEncadeada::ListaEncadeada(int arr[], int n) {
+    Node **cur = &head;
+    _size = n;
+    for(int i = 0; i < n; ++i) {
+        *cur = new Node(arr[i]);
+        cur = &((*cur)->next);
+    }
+}
+
+ListaEncadeada::~ListaEncadeada()
+{
     Node *temp = head;
     while(temp) {
         Node *prox = temp->next;
@@ -139,4 +149,28 @@ bool ListaEncadeada::pop_back() {
     }
     --_size;
     return true;
+}
+
+bool ListaEncadeada::rotate(int n) {
+    if(n < _size) {
+        Node *cur = head;
+        Node *prev = nullptr;
+        Node *tail = nullptr;
+        Node **curTail = &tail;
+
+        for(int i = 0; i < n; ++i) {
+            *curTail = new Node(cur->key);
+            curTail = &(*curTail)->next;
+            prev = cur;
+            cur = cur->next;
+            delete prev;
+        }
+        head = cur;
+        while(cur->next) {
+            cur = cur->next;
+        }
+        cur->next = tail;
+        return true;
+    }
+    return false;
 }

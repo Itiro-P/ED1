@@ -4,20 +4,9 @@
 #include <iostream>
 
 int main() {
-    ListaDuplaEncadeada listaEnc;
-    int n = 10;
-    for(int i = 0; i < n; ++i) {
-        listaEnc.push_back(i);    
-    }
+    ListaEncadeada listaEnc((int[5]){1,2,4,5,6}, 5);
     listaEnc.print();
-
-    listaEnc.pop_front();
-    listaEnc.print();
-    listaEnc.pop_back();
-    listaEnc.print();
-    listaEnc.push_front(999);
-    listaEnc.print();
-    listaEnc.insert(4, 150);
+    listaEnc.rotate(4);
     listaEnc.print();
     return 0;
 }
