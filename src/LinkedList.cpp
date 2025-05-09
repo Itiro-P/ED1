@@ -1,6 +1,6 @@
-#include <listaEncadeada.hpp>
+#include <LinkedList.hpp>
 
-ListaEncadeada::ListaEncadeada(int arr[], int n) {
+LinkedList::LinkedList(int arr[], int n) {
     Node **cur = &head;
     _size = n;
     for(int i = 0; i < n; ++i) {
@@ -9,7 +9,7 @@ ListaEncadeada::ListaEncadeada(int arr[], int n) {
     }
 }
 
-ListaEncadeada::~ListaEncadeada()
+LinkedList::~LinkedList()
 {
     Node *temp = head;
     while(temp) {
@@ -20,7 +20,7 @@ ListaEncadeada::~ListaEncadeada()
     }
 }
 
-void ListaEncadeada::push_front(int key) {
+void LinkedList::push_front(int key) {
     Node *novo = new Node(key);
     if(novo) {
         novo->next = head;
@@ -29,7 +29,7 @@ void ListaEncadeada::push_front(int key) {
     }
 }
 
-bool ListaEncadeada::pop_front() {
+bool LinkedList::pop_front() {
     if(!_size) return false;
     Node *temp = head;
     head = head->next;
@@ -38,7 +38,7 @@ bool ListaEncadeada::pop_front() {
     return true;
 }
 
-bool ListaEncadeada::insert(int pos, int key) {
+bool LinkedList::insert(int pos, int key) {
     if(pos >= 0 && pos < _size) {
         Node *prev = nullptr, *cur = head;
         for(int i = 0; i < pos; ++i) {
@@ -55,7 +55,7 @@ bool ListaEncadeada::insert(int pos, int key) {
     return false;
 }
 
-int ListaEncadeada::get(int pos) {
+int LinkedList::get(int pos) {
     if(_size && head && pos >  -1 && pos < _size) {
         Node *temp = head;
         for(int i = 0; i < pos; ++i) {
@@ -66,7 +66,7 @@ int ListaEncadeada::get(int pos) {
     return -1;
 }
 
-void ListaEncadeada::print() {
+void LinkedList::print() {
     Node *temp = head;
     while(temp) {
         std::cout << temp->key << ' ';
@@ -75,7 +75,7 @@ void ListaEncadeada::print() {
     std::cout << '\n';
 }
 
-void ListaEncadeada::print_last() {
+void LinkedList::print_last() {
     Node *cur = head;
     while(cur) {
         if(cur->next) {
@@ -87,7 +87,7 @@ void ListaEncadeada::print_last() {
     }
 }
 
-bool ListaEncadeada::is_Sorted() {
+bool LinkedList::is_Sorted() {
     Node *curNode = head;
     int prev = -1, cur = head->key;
     while(curNode) {
@@ -102,7 +102,7 @@ bool ListaEncadeada::is_Sorted() {
     return true;
 }
 
-bool ListaEncadeada::push_back_vector(int n, int *vec) {
+bool LinkedList::push_back_vector(int n, int *vec) {
     if(n < 1 || vec == nullptr) return false;
     for(int i = 0; i < n; ++i) {
         push_back(vec[n]);
@@ -110,15 +110,15 @@ bool ListaEncadeada::push_back_vector(int n, int *vec) {
     return true;
 }
 
-int ListaEncadeada::size() {
+int LinkedList::size() {
     return _size;
 }
 
-bool ListaEncadeada::empty() {
+bool LinkedList::empty() {
     return _size == 0;
 }
 
-void ListaEncadeada::push_back(int key) {
+void LinkedList::push_back(int key) {
     if(!_size) {
         head = new Node(key);
     } else {
@@ -131,7 +131,7 @@ void ListaEncadeada::push_back(int key) {
     ++_size;
 }
 
-bool ListaEncadeada::pop_back() {
+bool LinkedList::pop_back() {
     if(!_size) return false;
 
     if(_size == 1) {
@@ -151,7 +151,7 @@ bool ListaEncadeada::pop_back() {
     return true;
 }
 
-bool ListaEncadeada::rotate(int n) {
+bool LinkedList::rotate(int n) {
     if(n < _size) {
         Node *cur = head;
         Node *prev = nullptr;
@@ -173,4 +173,33 @@ bool ListaEncadeada::rotate(int n) {
         return true;
     }
     return false;
+}
+
+
+void LinkedList::reverse() {
+    Node *tail = this->head;
+    while(tail->next) {
+        tail = tail->next;
+    }
+    Node *cur = head, *index = tail;
+    while(cur != tail) {
+        index->next = cur;
+        cur = cur->next;
+        index = index->next;
+    }
+    this->head = tail;
+}
+
+bool LinkedList::sorted() {
+    Node *cur = head->next;
+    int a = head->key;
+    while(cur) {
+        if(cur->key >= a) {
+            a = cur->key;
+        } else {
+            return false;
+        }
+        cur = cur->next;
+    }
+    return true;
 }

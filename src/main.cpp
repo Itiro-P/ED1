@@ -1,12 +1,11 @@
-#include <listaSequencial.hpp>
-#include <listaEncadeada.hpp>
+#include <ListSeq.hpp>
+#include <LinkedList.hpp>
 #include <listaDuplaEncadeada.hpp>
 #include <iostream>
 
 int main() {
-    ListaEncadeada listaEnc((int[5]){1,2,4,5,6}, 5);
-    listaEnc.print();
-    listaEnc.rotate(4);
-    listaEnc.print();
+    LinkedList listaEnc((int[]){1,2,3,4,5,6}, 6);
+    ListSeq listaSeq(&listaEnc);
+    if(listaSeq.print()) std::cout << "sucesso.\n";
     return 0;
 }

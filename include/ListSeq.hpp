@@ -1,9 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <LinkedList.hpp>
 
 // Lista Sequencial.
-class ListaSequencial {
+class ListSeq {
     public:
     // Elementos alocados na Lista Sequencial.
     int size = 0;
@@ -15,7 +16,8 @@ class ListaSequencial {
     int *data = nullptr;
 
     // Construtor da lista.
-    ListaSequencial(int _capacity);
+    ListSeq(int _capacity);
+    ListSeq(LinkedList *lista);
 
     // Destrói o vetor.
     void destroy();
@@ -75,8 +77,8 @@ class ListaSequencial {
     void list_reverse();
 
     // Retorna 'true' se duas Listas são iguais.
-    bool list_equal(ListaSequencial *outra);
+    bool list_equal(ListSeq *outra);
 
     // Concatena com outra Lista obedecendo a capacidade originial.
-    int list_concat(ListaSequencial* list2);
+    int list_concat(ListSeq* list2);
 };

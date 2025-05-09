@@ -1,11 +1,27 @@
-#include <listaSequencial.hpp>
+#include <ListSeq.hpp>
 
-ListaSequencial::ListaSequencial(int _capacity) {
+ListSeq::ListSeq(int _capacity) {
     data = new int[_capacity];
     if(data) capacity = _capacity;
 }
 
-void ListaSequencial::destroy() {
+ListSeq::ListSeq(LinkedList *lista) {
+    Node *cur = lista->head;
+    int size = 0;
+    while(cur) {
+        ++size;
+        cur = cur->next;
+    }
+    data = new int[size];
+    cur = lista->head;
+    for(int i = 0; i < size; ++i) {
+        data[i] = cur->key;
+        cur = cur->next;
+    }
+    this->size = size;
+}
+
+void ListSeq::destroy() {
     if(data) {
         delete[] data;
         size = 0;
@@ -14,7 +30,7 @@ void ListaSequencial::destroy() {
     }
 }
 
-bool ListaSequencial::resize() {
+bool ListSeq::resize() {
     if(data) {
         int *temp = data;
         data = new int[capacity+1];
@@ -31,7 +47,7 @@ bool ListaSequencial::resize() {
     return false;
 }
 
-bool ListaSequencial::print() {
+bool ListSeq::print() {
     if(data) {
         for(int i = 0; i < size; ++i) {
             std::cout << data[i] << ' ';
@@ -41,25 +57,25 @@ bool ListaSequencial::print() {
     return true;
 }
 
-int ListaSequencial::find(int elem) {
+int ListSeq::find(int elem) {
     if(data) for(int i = 0; i < size; ++i) if(data[i] == elem) return i;
     return -1;
 }
 
-int ListaSequencial::get(int pos) {
+int ListSeq::get(int pos) {
     if(data && pos < size) return data[pos];
     return -1;
 }
 
-bool ListaSequencial::isEmpty() {
+bool ListSeq::isEmpty() {
     return size == 0;
 }
 
-bool ListaSequencial::isFull() {
+bool ListSeq::isFull() {
     return size == capacity;
 }
 
-bool ListaSequencial::add(int elem) {
+bool ListSeq::add(int elem) {
     if(data) {
         if(size < capacity) {
             data[size++] = elem;
@@ -73,13 +89,13 @@ bool ListaSequencial::add(int elem) {
     return false;
 }
 
-bool ListaSequencial::remove() {
+bool ListSeq::remove() {
     if(size <= 0) return false;
     --size;
     return true;
 }
 
-void ListaSequencial::insert(int elem, int pos) {
+void ListSeq::insert(int elem, int pos) {
     if(data && pos < size && pos >= 0 && (size < capacity || resize())) {
         for(int i = size; i > pos; --i) data[i] = data[i-1];
         data[pos] = elem;
@@ -87,7 +103,7 @@ void ListaSequencial::insert(int elem, int pos) {
     }
 }
 
-void ListaSequencial::removeAt(int pos) {
+void ListSeq::removeAt(int pos) {
     if(data && pos >= 0 && pos < size) {
         for(int i = pos; i < size; ++i) {
             data[i] = data[i+1];
@@ -96,7 +112,7 @@ void ListaSequencial::removeAt(int pos) {
     }
 }
 
-bool ListaSequencial::addSorted(int elem) {
+bool ListSeq::addSorted(int elem) {
     for(int i = 0; i < size; ++i) {
         if(data[i] < elem) {
             insert(elem, i+1);
@@ -106,15 +122,15 @@ bool ListaSequencial::addSorted(int elem) {
     return false;
 }
 
-int ListaSequencial::list_get_available() {
+int ListSeq::list_get_available() {
     return (capacity-size >= 0 ? capacity-size: 0);
 }
 
-void ListaSequencial::list_clear() {
+void ListSeq::list_clear() {
     size = 0;
 }
 
-void ListaSequencial::list_remove_last(int n) {
+void ListSeq::list_remove_last(int n) {
     if(n >= size) {
         size = 0;
     } else {
@@ -122,14 +138,14 @@ void ListaSequencial::list_remove_last(int n) {
     }
 }
 
-void ListaSequencial::list_print_reverse() {
+void ListSeq::list_print_reverse() {
     for(int i = size-1; i >= 0; --i) {
         std::cout << data[i] << ' ';
     }
     std::cout << '\n';
 }
 
-void ListaSequencial::list_add(int n, int *vet) {
+void ListSeq::list_add(int n, int *vet) {
     if(n > 0 && data) {
         int k = 0, restantes = capacity-size > n ?  n: capacity-size;
         for(int i = size-1; i < restantes; ++i) {
@@ -138,14 +154,14 @@ void ListaSequencial::list_add(int n, int *vet) {
     }
 }
 
-bool ListaSequencial::list_is_sorted() {
+bool ListSeq::list_is_sorted() {
     for (int i = 1; i < size; ++i) {
         if (data[i - 1] > data[i]) return false;
     }
     return true;
 }
 
-void ListaSequencial::list_reverse() {
+void ListSeq::list_reverse() {
     if(size == 2) {
         int temp = data[0];
         data[0] = data[1];
@@ -162,7 +178,7 @@ void ListaSequencial::list_reverse() {
     }
 }
 
-bool ListaSequencial::list_equal(ListaSequencial *outra) {
+bool ListSeq::list_equal(ListSeq *outra) {
     if (!outra || outra->size != size) return false;
     for (int i = 0; i < size; ++i) {
         if (data[i] != outra->data[i]) return false;
@@ -170,7 +186,7 @@ bool ListaSequencial::list_equal(ListaSequencial *outra) {
     return true;
 }
 
-int ListaSequencial::list_concat(ListaSequencial *list2) {
+int ListSeq::list_concat(ListSeq *list2) {
     if(list2) {
         if(list2->data) {
             int q = capacity-size >= list2->size ? list2->size : capacity-size;
@@ -183,9 +199,9 @@ int ListaSequencial::list_concat(ListaSequencial *list2) {
     return -1;
 }
 
-ListaSequencial *list_from_vector(int n, int* vet) {
+ListSeq *list_from_vector(int n, int* vet) {
     if(vet && n > 0) {
-        ListaSequencial *res = new ListaSequencial(n*2);
+        ListSeq *res = new ListSeq(n*2);
         if(res) {
             if(res->data) {
                 for(int i = 0; i < n; ++i) {
@@ -198,10 +214,10 @@ ListaSequencial *list_from_vector(int n, int* vet) {
     return nullptr;
 }
 
-ListaSequencial *list_copy(ListaSequencial *outra) {
+ListSeq *list_copy(ListSeq *outra) {
     if(outra) {
         if(outra->data) {
-            ListaSequencial *res = new ListaSequencial(outra->size);
+            ListSeq *res = new ListSeq(outra->size);
             if(res) {
                 for(int i = 0; i < outra->size; ++i) {
                     res->add(outra->data[i]);
