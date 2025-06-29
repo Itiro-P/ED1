@@ -5,26 +5,21 @@
 #include <stack>
 #include <queue>
 
-void print_rec(int count, const char* text) {
+void print_txt(char* text, int count = 0) {
     if(count < 10) {
         std::cout << text << '\n';
-        print_rec(++count, text);
+        print_txt(text, ++count);
     } else return;
 }
 
-void print_txt(char* text) {
-    int count = 0;
-    print_rec(count, text);
-}
-
-void count(int num) {
+void count(int num = 0) {
     if(num <= 50) {
         std::cout << num << '\n';
         count(++num);
     } else return;
 }
 
-void count_max(int num, const int max) {
+void count_max(int num = 0, const int max = 50) {
     if(num <= max) {
         std::cout << num << '\n';
         count_max(++num, max);
@@ -43,35 +38,35 @@ void print_vec(std::vector<int>& vec, int idx) {
     }
 }
 
-void print_even(std::vector<int>& vec, int idx) {
+void print_even(std::vector<int>& vec, int idx = 0) {
     if(vec.empty()) return;
 
-    if(idx >= 0) {
+    if(idx >= 0 && idx < vec.size()) {
         if(!(vec[idx] & 1)) std::cout << vec[idx] << ' ';
-        print_even(vec, --idx);
+        print_even(vec, ++idx);
     } else {
         std::cout << '\n';
         return;
     }
 }
 
-void print_list(std::list<int>& lst, std::list<int>::iterator& it) {
+void print_list(std::list<int>& lst, std::list<int>::iterator it) {
     if(lst.empty()) return;
 
     if(it != lst.end()) {
         std::cout << *it << ' ';
-        print_list(lst, ++it);
+        print_list(lst, std::next(it));
     } else {
         std::cout << '\n';
         return;
     }
 }
 
-void print_rev(std::forward_list<int>& lst, std::forward_list<int>::iterator& it) {
+void print_rev(std::forward_list<int>& lst, std::forward_list<int>::iterator it) {
     if(it == lst.end()) return;
 
     int cur = *it;
-    print_rev(lst, ++it);
+    print_rev(lst, std::next(it));
     std::cout << cur << ' ';
 }
 

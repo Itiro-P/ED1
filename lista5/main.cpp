@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <list>
+
+
 int sum(std::vector<int>& vec, int n = 0) {
     return (n < 0 || n >= vec.size() ? 0: vec[n] + sum(vec, n+1));
 }
@@ -10,11 +12,11 @@ int product(std::list<int>& lst, std::list<int>::iterator it) {
 }
 
 int min(std::vector<int>& vec, int n = 0) {
-    return (vec.size() <= 0 || n < 0 ? -1: (n >= vec.size() ? 2147483647: vec[n] < min(vec, n+1) ? vec[n]: min(vec, n+1)));
+    return (vec.size() <= 0 || n < 0 ? -1: (n >= vec.size() ? vec[vec.size()-1]: vec[n] < min(vec, n+1) ? vec[n]: min(vec, n+1)));
 }
 
 int min(std::list<int>& lst, std::list<int>::iterator it) {
-    return (it == lst.end() ? 2147483647: (*it < min(lst, std::next(it)) ? *it: min(lst, std::next(it))));
+    return (it == lst.end() ? *(std::prev(lst.end())): (*it < min(lst, std::next(it)) ? *it: min(lst, std::next(it))));
 }
 
 bool find(std::vector<int>& vec, int elem, int n = 0) {
@@ -26,11 +28,11 @@ int count(std::vector<int>& vec, int elem, int n = 0) {
 }
 
 void reverse(std::vector<int>& vec, int first, int last) {
-    (first < last && first >= 0 && last < vec.size()) ? (vec[first] == vec[last] ? reverse(vec, ++first, --last): (vec[first] ^= vec[last] ^= vec[first] ^= vec[last], reverse(vec, ++first, --last))) : void();
+    (first < last && first >= 0 && last < vec.size()) ? (vec[first] == vec[last] ? reverse(vec, ++first, --last): (std::swap(vec[first], vec[last]), reverse(vec, ++first, --last))) : void();
 }
 
 void reverse(std::list<int>& lst, std::list<int>::iterator first, std::list<int>::iterator last) {
-    (first != last && last != lst.end()) ? (*first == *last ? reverse(lst, std::next(first), std::prev(last)): (*first ^= *last ^= *first ^= *last, reverse(lst, std::next(first), std::prev(last)))) : void();
+    (first != last && last != lst.end()) ? (*first == *last ? reverse(lst, std::next(first), std::prev(last)): (std::swap(*first, *last), reverse(lst, std::next(first), std::prev(last)))) : void();
 }
 
 bool palindrome(std::string& str, int first, int last) {
@@ -42,17 +44,14 @@ bool palindrome(std::list<int>& lst, std::list<int>::iterator first, std::list<i
 }
 
 // função para printar elementos de uma estrutura
-template<typename estrutura>
-void printv(estrutura&& e) {
+template<typename estrutura> void printv(estrutura&& e) {
     for(const auto &it: e) std::cout << it << ' ';
     std::cout << '\n';
 }
 
 int main() {
-    std::string testestr = "abab";
-    std::vector<int> testevec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    std::list<int> testelst = {13, -1, 2, 3, 4, 3, 2, -1, 13};
-    printv(testelst);
-    std::cout << palindrome(testelst, testelst.begin(), std::prev(testelst.end())) << '\n';
+    std::vector<int> teste{1,2,3,4,5, -1};
+    reverse(teste, 0, teste.size() - 1);
+    printv(teste);
     return 0;
 }
